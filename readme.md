@@ -1,10 +1,5 @@
-iMart - Supermarket Management System
+# iMart - Supermarket Management System
 Project design using Java Swing Technology
-
-# RESOURCES USED:
-* Java SE
-* Java Awt, Java Swing
-* Oracle Database
 
 
 # RESOURCES USED:
