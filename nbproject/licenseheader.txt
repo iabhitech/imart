@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Super Market Management System
+${licensePrefix}Designed By Abhineet Verma ${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>
