@@ -4,27 +4,27 @@
  */
 package com.iabhitech.imart.gui;
 
-import com.iabhitech.imart.dao.EmployeeDAO;
-import com.iabhitech.imart.pojo.EmployeePojo;
+import com.iabhitech.imart.dao.ReceptionistDAO;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author ABHINEET VERMA
+ * @author Abhineet Verma
  */
-public class UpdateEmployeesFrame extends javax.swing.JFrame {
+public class UpdateReceptionistFrame extends javax.swing.JFrame {
+    
+    Map<String, String> receptionistList;
 
     /**
-     * Creates new form UpdateEmployeesFrame
+     * Creates new form UpdateReceptionistFrame
      */
-    public UpdateEmployeesFrame() {
+    public UpdateReceptionistFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
-        clearInputs();
+        initInputs();
     }
 
     /**
@@ -41,14 +41,14 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtFieldEmpName = new javax.swing.JTextField();
-        comboJob = new javax.swing.JComboBox<>();
-        txtFieldSal = new javax.swing.JTextField();
-        btnUpdateEmp = new javax.swing.JButton();
-        comboEmpIDs = new javax.swing.JComboBox<>();
+        btnUpdateRecep = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtFieldPassword = new javax.swing.JPasswordField();
+        txtFieldCPassword = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
+        comboUserIds = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
@@ -56,14 +56,14 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update Employee");
+        setTitle("Update Receptionist");
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 153));
 
         labelWelcome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelWelcome.setForeground(new java.awt.Color(255, 255, 255));
         labelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelWelcome.setText("Update Employee");
+        labelWelcome.setText("Update Receptionist");
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Employee Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(204, 204, 204))); // NOI18N
@@ -73,39 +73,40 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Employee Id");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Job");
+        jLabel2.setText("User Id");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Employee Name");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Salary");
-
+        txtFieldEmpName.setEditable(false);
         txtFieldEmpName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        comboJob.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "Receptionist", "Helper", "Cleaner" }));
-
-        txtFieldSal.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-
-        btnUpdateEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnUpdateEmp.setText("Update");
-        btnUpdateEmp.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateRecep.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnUpdateRecep.setText("Update");
+        btnUpdateRecep.setEnabled(false);
+        btnUpdateRecep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateEmpActionPerformed(evt);
+                btnUpdateRecepActionPerformed(evt);
             }
         });
 
-        comboEmpIDs.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboEmpIDs.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Password");
+
+        txtFieldPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        txtFieldCPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Retype Password");
+
+        comboUserIds.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboUserIds.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEmpIDsActionPerformed(evt);
+                comboUserIdsActionPerformed(evt);
             }
         });
 
@@ -118,24 +119,20 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldEmpName)
-                            .addComponent(comboJob, 0, 165, Short.MAX_VALUE)
-                            .addComponent(txtFieldSal)
-                            .addComponent(comboEmpIDs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addGap(60, 60, 60)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFieldEmpName)
+                    .addComponent(txtFieldPassword)
+                    .addComponent(txtFieldCPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(comboUserIds, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdateRecep, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -143,26 +140,26 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(comboEmpIDs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboUserIds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtFieldEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboJob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtFieldSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdateEmp)
+                    .addComponent(txtFieldCPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUpdateRecep)
                 .addContainerGap())
         );
 
@@ -188,7 +185,7 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -245,14 +242,16 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
                 .addComponent(labelWelcome)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,6 +261,32 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateRecepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRecepActionPerformed
+        // TODO Update:
+        String password1 = String.valueOf(txtFieldPassword.getPassword());
+        String password2 = String.valueOf(txtFieldCPassword.getPassword());
+        
+        if (password1.isEmpty() || password2.isEmpty() || password2.length() < 4 || !password1.equals(password2)) {
+            JOptionPane.showMessageDialog(null, "Please enter correct more than 4 digit long password in both fields", "Invalid Password", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            String userid = comboUserIds.getSelectedItem().toString();
+            
+            if (ReceptionistDAO.updatePassword(userid, password1)) {
+                JOptionPane.showMessageDialog(null, "Your Password updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                comboUserIds.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error! Failed to update", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            clearText();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUpdateRecepActionPerformed
+
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO Logout and redirect to Login Page
         new LoginFrame().setVisible(true);
@@ -269,64 +294,16 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO Goto Manage Employee
-        new ManageEmployeesFrame().setVisible(true);
+        // TODO Goto Manage Receptionist
+        new ManageReceptionistsFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
-        // TODO Update Employee
-
-        if (!validateInputs()) {
-            JOptionPane.showMessageDialog(null, "Please Input all fields", "Incomplete Data", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            String empid = comboEmpIDs.getSelectedItem().toString();
-            EmployeePojo emp = new EmployeePojo();
-            emp.setEmpid(empid);
-            emp.setEmpname(txtFieldEmpName.getText().trim());
-            emp.setJob(comboJob.getSelectedItem().toString());
-            emp.setSalary(Double.parseDouble(txtFieldSal.getText().trim()));
-
-            if (EmployeeDAO.updateEmployee(emp)) {
-                JOptionPane.showMessageDialog(null, "Employee Record Updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error! Employee Record not updated", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Input Data", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-
-    }//GEN-LAST:event_btnUpdateEmpActionPerformed
-
-    private void comboEmpIDsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpIDsActionPerformed
-        try {
-
-            EmployeePojo emp = EmployeeDAO.getEmployee(comboEmpIDs.getSelectedItem().toString());
-
-            if (emp == null) {
-                JOptionPane.showMessageDialog(null, "Employee Record not Found", "Data Not Found!", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            txtFieldEmpName.setText(emp.getEmpname());
-            txtFieldSal.setText(String.valueOf(emp.getSalary()));
-            comboJob.setSelectedItem(emp.getJob());
-
-        } catch (SQLException ex) {
-
-            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-
-        }
-    }//GEN-LAST:event_comboEmpIDsActionPerformed
+    private void comboUserIdsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUserIdsActionPerformed
+        // set name:
+        String username = receptionistList.get(comboUserIds.getSelectedItem().toString());
+        txtFieldEmpName.setText(username);
+    }//GEN-LAST:event_comboUserIdsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,26 +316,26 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateEmployeesFrame().setVisible(true);
+                new UpdateReceptionistFrame().setVisible(true);
             }
         });
     }
@@ -366,45 +343,44 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnUpdateEmp;
-    private javax.swing.JComboBox<String> comboEmpIDs;
-    private javax.swing.JComboBox<String> comboJob;
+    private javax.swing.JButton btnUpdateRecep;
+    private javax.swing.JComboBox<String> comboUserIds;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelWelcome;
+    private javax.swing.JPasswordField txtFieldCPassword;
     private javax.swing.JTextField txtFieldEmpName;
-    private javax.swing.JTextField txtFieldSal;
+    private javax.swing.JPasswordField txtFieldPassword;
     // End of variables declaration//GEN-END:variables
 
-    private boolean validateInputs() {
-        return !(txtFieldEmpName.getText().trim().isEmpty() || txtFieldSal.getText().trim().isEmpty());
-    }
-
-    private void clearInputs() {
-
-        txtFieldEmpName.setText("");
-        comboJob.setSelectedIndex(0);
-        txtFieldSal.setText("");
-        comboEmpIDs.removeAllItems();
-
+    private void initInputs() {
         try {
-            List<String> empIDs = EmployeeDAO.getAllEmployeesIDs();
-            for (String id : empIDs) {
-                comboEmpIDs.addItem(id);
+            receptionistList = ReceptionistDAO.getAllReceptionistIds();
+            if (receptionistList.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No Unregistered receptionist Present", "Message", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            comboEmpIDs.setSelectedIndex(0);
-
+            btnUpdateRecep.setEnabled(true);
+            Set<String> keys = receptionistList.keySet();
+            for (String id : keys) {
+                comboUserIds.addItem(id);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(RemoveEmployeeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+    }
+    
+    private void clearText() {
+        txtFieldPassword.setText("");
+        txtFieldCPassword.setText("");
     }
 }

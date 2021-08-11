@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,7 +26,7 @@ public class UserDAO {
 
     public static boolean validateUser(UserPojo user) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        
+
         PreparedStatement stmt = conn.prepareStatement("select * from users where userid = ? and password = ? and usertype = ?");
         stmt.setString(1, user.getUserId());
         stmt.setString(2, user.getPassword());
@@ -37,6 +40,22 @@ public class UserDAO {
             return true;
         }
         return false;
-
     }
+
+    static boolean isUserPresent(String empid) throws SQLException {
+        PreparedStatement stmt = DBConnection.getConnection()
+                .prepareStatement("select 1 from users where empid = ?");
+        stmt.setString(1, empid);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();
+    }
+
+    public static boolean isValidUserId(String userid) throws SQLException {
+        PreparedStatement stmt = DBConnection.getConnection()
+                .prepareStatement("select 1 from users where userid = ?");
+        stmt.setString(1, userid);
+        ResultSet rs = stmt.executeQuery();
+        return !rs.next();
+    }
+
 }

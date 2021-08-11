@@ -4,27 +4,27 @@
  */
 package com.iabhitech.imart.gui;
 
-import com.iabhitech.imart.dao.EmployeeDAO;
-import com.iabhitech.imart.pojo.EmployeePojo;
+import com.iabhitech.imart.dao.ReceptionistDAO;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author ABHINEET VERMA
+ * @author Abhineet Verma
  */
-public class UpdateEmployeesFrame extends javax.swing.JFrame {
+public class RemoveReceptionistFrame extends javax.swing.JFrame {
+    
+    Map<String, String> receptionistList;
 
     /**
-     * Creates new form UpdateEmployeesFrame
+     * Creates new form RemoveReceptionistFrame
      */
-    public UpdateEmployeesFrame() {
+    public RemoveReceptionistFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
-        clearInputs();
+        initInputs();
     }
 
     /**
@@ -41,14 +41,8 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtFieldEmpName = new javax.swing.JTextField();
-        comboJob = new javax.swing.JComboBox<>();
-        txtFieldSal = new javax.swing.JTextField();
-        btnUpdateEmp = new javax.swing.JButton();
-        comboEmpIDs = new javax.swing.JComboBox<>();
+        btnRemoveRecep = new javax.swing.JButton();
+        comboUserIds = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
@@ -56,14 +50,14 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update Employee");
+        setTitle("Remove Receptionist");
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 153));
 
         labelWelcome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelWelcome.setForeground(new java.awt.Color(255, 255, 255));
         labelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelWelcome.setText("Update Employee");
+        labelWelcome.setText("Remove Receptionist");
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Employee Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(204, 204, 204))); // NOI18N
@@ -73,41 +67,18 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Employee Id");
+        jLabel2.setText("User Id");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Job");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Employee Name");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Salary");
-
-        txtFieldEmpName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-
-        comboJob.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "Receptionist", "Helper", "Cleaner" }));
-
-        txtFieldSal.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-
-        btnUpdateEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnUpdateEmp.setText("Update");
-        btnUpdateEmp.addActionListener(new java.awt.event.ActionListener() {
+        btnRemoveRecep.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnRemoveRecep.setText("Remove");
+        btnRemoveRecep.setEnabled(false);
+        btnRemoveRecep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateEmpActionPerformed(evt);
+                btnRemoveRecepActionPerformed(evt);
             }
         });
 
-        comboEmpIDs.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboEmpIDs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEmpIDsActionPerformed(evt);
-            }
-        });
+        comboUserIds.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,55 +86,32 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(54, 54, 54)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldEmpName)
-                            .addComponent(comboJob, 0, 165, Short.MAX_VALUE)
-                            .addComponent(txtFieldSal)
-                            .addComponent(comboEmpIDs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addComponent(comboUserIds, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(29, 29, 29))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRemoveRecep, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(133, 133, 133))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(comboEmpIDs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtFieldEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboJob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtFieldSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdateEmp)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(comboUserIds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(105, 105, 105)
+                        .addComponent(btnRemoveRecep))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(51, 0, 153));
@@ -188,7 +136,7 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -245,7 +193,7 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
                 .addComponent(labelWelcome)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,6 +210,27 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRemoveRecepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveRecepActionPerformed
+        // TODO Remove user
+        try {
+            String userid = comboUserIds.getSelectedItem().toString();
+            
+            if (ReceptionistDAO.removeReceptionist(userid)) {
+                JOptionPane.showMessageDialog(null, "User removed Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                comboUserIds.removeItemAt(comboUserIds.getSelectedIndex());
+                if (comboUserIds.getItemCount() == 0) {
+                    btnRemoveRecep.setEnabled(false);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error! Failed to remove user", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnRemoveRecepActionPerformed
+
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO Logout and redirect to Login Page
         new LoginFrame().setVisible(true);
@@ -269,64 +238,10 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO Goto Manage Employee
-        new ManageEmployeesFrame().setVisible(true);
+        // TODO Goto Manage Receptionist
+        new ManageReceptionistsFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
-        // TODO Update Employee
-
-        if (!validateInputs()) {
-            JOptionPane.showMessageDialog(null, "Please Input all fields", "Incomplete Data", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            String empid = comboEmpIDs.getSelectedItem().toString();
-            EmployeePojo emp = new EmployeePojo();
-            emp.setEmpid(empid);
-            emp.setEmpname(txtFieldEmpName.getText().trim());
-            emp.setJob(comboJob.getSelectedItem().toString());
-            emp.setSalary(Double.parseDouble(txtFieldSal.getText().trim()));
-
-            if (EmployeeDAO.updateEmployee(emp)) {
-                JOptionPane.showMessageDialog(null, "Employee Record Updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error! Employee Record not updated", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid Input Data", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-
-    }//GEN-LAST:event_btnUpdateEmpActionPerformed
-
-    private void comboEmpIDsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpIDsActionPerformed
-        try {
-
-            EmployeePojo emp = EmployeeDAO.getEmployee(comboEmpIDs.getSelectedItem().toString());
-
-            if (emp == null) {
-                JOptionPane.showMessageDialog(null, "Employee Record not Found", "Data Not Found!", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            txtFieldEmpName.setText(emp.getEmpname());
-            txtFieldSal.setText(String.valueOf(emp.getSalary()));
-            comboJob.setSelectedItem(emp.getJob());
-
-        } catch (SQLException ex) {
-
-            JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-
-        }
-    }//GEN-LAST:event_comboEmpIDsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,26 +254,26 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoveReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoveReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoveReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoveReceptionistFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateEmployeesFrame().setVisible(true);
+                new RemoveReceptionistFrame().setVisible(true);
             }
         });
     }
@@ -366,45 +281,34 @@ public class UpdateEmployeesFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnUpdateEmp;
-    private javax.swing.JComboBox<String> comboEmpIDs;
-    private javax.swing.JComboBox<String> comboJob;
+    private javax.swing.JButton btnRemoveRecep;
+    private javax.swing.JComboBox<String> comboUserIds;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelWelcome;
-    private javax.swing.JTextField txtFieldEmpName;
-    private javax.swing.JTextField txtFieldSal;
     // End of variables declaration//GEN-END:variables
 
-    private boolean validateInputs() {
-        return !(txtFieldEmpName.getText().trim().isEmpty() || txtFieldSal.getText().trim().isEmpty());
-    }
-
-    private void clearInputs() {
-
-        txtFieldEmpName.setText("");
-        comboJob.setSelectedIndex(0);
-        txtFieldSal.setText("");
-        comboEmpIDs.removeAllItems();
-
+    private void initInputs() {
         try {
-            List<String> empIDs = EmployeeDAO.getAllEmployeesIDs();
-            for (String id : empIDs) {
-                comboEmpIDs.addItem(id);
+            receptionistList = ReceptionistDAO.getAllReceptionistIds();
+            if (receptionistList.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No Unregistered receptionist Present", "Message", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            comboEmpIDs.setSelectedIndex(0);
-
+            Set<String> keys = receptionistList.keySet();
+            keys.forEach((id) -> {
+                comboUserIds.addItem(id);
+            });
+            btnRemoveRecep.setEnabled(true);
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error while connecting to database", "Database Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(RemoveEmployeeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 }

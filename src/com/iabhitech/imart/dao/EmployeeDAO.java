@@ -19,7 +19,7 @@ import java.util.List;
  * @author Abhineet Verma
  */
 public class EmployeeDAO {
-    
+
     public static String getNextEmpID() throws SQLException {
         Connection conn = DBConnection.getConnection();
         Statement stmt = conn.createStatement();
@@ -29,7 +29,7 @@ public class EmployeeDAO {
         empid += 1;
         return "E" + empid;
     }
-    
+
     public static boolean addEmployee(EmployeePojo emp) throws SQLException {
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement("insert into employees values(?,?,?,?)");
@@ -37,10 +37,10 @@ public class EmployeeDAO {
         ps.setString(2, emp.getEmpname());
         ps.setString(3, emp.getJob());
         ps.setDouble(4, emp.getSalary());
-        
+
         return ps.executeUpdate() == 1;
     }
-    
+
     public static List<EmployeePojo> getAllEmployees() throws SQLException {
         Connection conn = DBConnection.getConnection();
         Statement stmt = conn.createStatement();
@@ -56,7 +56,7 @@ public class EmployeeDAO {
         }
         return empList;
     }
-    
+
     public static EmployeePojo getEmployee(String empId) throws SQLException {
         Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement("select * from employees where empid=?");
@@ -69,15 +69,30 @@ public class EmployeeDAO {
         return emp;
     }
 
-    public static boolean updateEmployee(String empId, EmployeePojo emp) throws SQLException {
-        PreparedStatement ps = DBConnection.getConnection()
+    public static boolean updateEmployee(EmployeePojo emp) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn
                 .prepareStatement("update employees set empname=?, salary=?, job=? where empid = ?");
 
         ps.setString(1, emp.getEmpname());
         ps.setDouble(2, emp.getSalary());
         ps.setString(3, emp.getJob());
-        ps.setString(4, empId);
-        
+        ps.setString(4, emp.getEmpid());
+
+        int empRes = ps.executeUpdate();
+        if (empRes == 0) {
+            return false;
+        }
+
+        if (!UserDAO.isUserPresent(emp.getEmpid())) {
+            return true;
+        }
+        ps = conn.prepareStatement("update users set username=?, usertype=? where empid=?");
+
+        ps.setString(1, emp.getEmpname());
+        ps.setString(2, emp.getJob());
+        ps.setString(3, emp.getEmpid());
+
         return ps.executeUpdate() == 1;
     }
 
@@ -85,18 +100,19 @@ public class EmployeeDAO {
         Statement stmt = DBConnection.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("Select empid from employees");
         ArrayList<String> ids = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             ids.add(rs.getString("empid"));
         }
         return ids;
     }
 
     public static boolean removeEmployee(String empId) throws SQLException {
-     PreparedStatement ps = DBConnection.getConnection()
+        PreparedStatement ps = DBConnection.getConnection()
                 .prepareStatement("delete employees where empid = ?");
-     
+
         ps.setString(1, empId);
-        
+
         return ps.executeUpdate() == 1;
     }
+
 }

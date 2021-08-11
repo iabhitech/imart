@@ -76,10 +76,20 @@ public class ManagerOptionsFrame extends javax.swing.JFrame {
         btnManageRecep.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnManageRecep.setText("Manage Receptionist");
         btnManageRecep.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManageRecep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageRecepActionPerformed(evt);
+            }
+        });
 
         btnManageStock.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnManageStock.setText("Manage Stock");
         btnManageStock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManageStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageStockActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -206,6 +216,17 @@ public class ManagerOptionsFrame extends javax.swing.JFrame {
         new LoginFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnManageRecepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRecepActionPerformed
+        // TODO open manage receptionist frame
+        new ManageReceptionistsFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageRecepActionPerformed
+
+    private void btnManageStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStockActionPerformed
+        new ManageStocksFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageStockActionPerformed
 
     /**
      * @param args the command line arguments

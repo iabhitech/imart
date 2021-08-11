@@ -6,14 +6,14 @@ package com.iabhitech.imart.gui;
 
 /**
  *
- * @author Abhineet Verma
+ * @author ACER
  */
-public class ManageEmployeesFrame extends javax.swing.JFrame {
+public class ManageReceptionistsFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageEmployeesFrame
+     * Creates new form ManageReceptionistsFrame
      */
-    public ManageEmployeesFrame() {
+    public ManageReceptionistsFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
     }
@@ -42,14 +42,14 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manage Employees");
+        setTitle("Manage Receptionists");
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 153));
 
         labelWelcome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelWelcome.setForeground(new java.awt.Color(255, 255, 255));
         labelWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelWelcome.setText("Welcome to Manage Employees");
+        labelWelcome.setText("Welcome to Manage Receptionists");
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Select Option", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(204, 204, 204))); // NOI18N
@@ -58,7 +58,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iabhitech/imart/images/emp.jpg"))); // NOI18N
 
         btnAddEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnAddEmp.setText("Add Employees");
+        btnAddEmp.setText("Add Receptionist");
         btnAddEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         });
 
         btnViewEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnViewEmp.setText("View Employees");
+        btnViewEmp.setText("View Receptionist");
         btnViewEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnViewEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +76,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         });
 
         btnUpdateEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnUpdateEmp.setText("Update Employees");
+        btnUpdateEmp.setText("Update Receptionist");
         btnUpdateEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdateEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +85,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         });
 
         btnRemoveEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnRemoveEmp.setText("Remove Employees");
+        btnRemoveEmp.setText("Remove Receptionist");
         btnRemoveEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemoveEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +100,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAddEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRemoveEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -205,7 +205,7 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
                 .addComponent(labelWelcome)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,16 +223,28 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmpActionPerformed
-        // TODO open manage employee frame
-        new AddEmployeesFrame().setVisible(true);
+        // TODO open add Receptionist frame
+        new AddReceptionistsFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddEmpActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO Goto ManagerOptionFrame
-        new ManagerOptionsFrame().setVisible(true);
+    private void btnViewEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewEmpActionPerformed
+        // TODO Goto ViewReceptionistsFrame
+        new ViewReceptionistsFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_btnViewEmpActionPerformed
+
+    private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
+        // TODO Goto UpdateReceptionistFrame
+        new UpdateReceptionistFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUpdateEmpActionPerformed
+
+    private void btnRemoveEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEmpActionPerformed
+        // TODO Goto RemoveReceptionistFrame
+        new RemoveReceptionistFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRemoveEmpActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO Logout and redirect to Login Page
@@ -240,23 +252,11 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnViewEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewEmpActionPerformed
-        // TODO Goto ViewEmployeesFrame
-        new ViewEmployeesFrame().setVisible(true);
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO Goto ManagerOptionFrame
+        new ManagerOptionsFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnViewEmpActionPerformed
-
-    private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
-        // TODO Goto UpdateEmployeesFrame
-        new UpdateEmployeesFrame().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUpdateEmpActionPerformed
-
-    private void btnRemoveEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEmpActionPerformed
-        // TODO Goto RemoveEmployeeFrame
-        new RemoveEmployeeFrame().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRemoveEmpActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,26 +269,26 @@ public class ManageEmployeesFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageReceptionistsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageReceptionistsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageReceptionistsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageReceptionistsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageEmployeesFrame().setVisible(true);
+                new ManageReceptionistsFrame().setVisible(true);
             }
         });
     }
