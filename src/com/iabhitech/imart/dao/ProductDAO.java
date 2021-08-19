@@ -90,4 +90,35 @@ public class ProductDAO {
 
     }
 
+    public static ProductPojo getProductDetail(String id) throws SQLException {
+        PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("select * from products where P_ID = ? and status = 'Y'");
+        ps.setString(1, id);
+        ResultSet rs =ps.executeQuery();
+        ProductPojo  p = null;
+        if(rs.next()){
+            p = new ProductPojo(
+                    rs.getString("p_id"),
+                    rs.getString("p_name"),
+                    rs.getString("p_company_name"),
+                    rs.getDouble("p_price"),
+                    rs.getDouble("our_price"),
+                    rs.getInt("p_tax"),
+                    rs.getInt("quantity")
+            );
+        }
+        return p;
+    }
+    
+    public static boolean updateStocks(List<ProductPojo> productsList) throws SQLException{
+        PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("update products set quantity=quantity-? and P_ID = ? and status = 'Y'");
+        int rowsUpdated = 0;
+        for(ProductPojo p: productsList){
+            ps.setInt(1, p.getQuantity());
+            ps.setString(2, p.getProductId());
+            rowsUpdated += ps.executeUpdate();
+        }
+        return rowsUpdated == productsList.size();
+    }
 }

@@ -35,7 +35,7 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
         labelWelcome = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        btnManageEmp = new javax.swing.JButton();
+        btnBillingSection = new javax.swing.JButton();
         btnManageStock = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -58,9 +58,14 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iabhitech/imart/images/receptionist.jpg"))); // NOI18N
 
-        btnManageEmp.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnManageEmp.setText("Manage Employees");
-        btnManageEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBillingSection.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnBillingSection.setText("Billing Section");
+        btnBillingSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBillingSection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBillingSectionActionPerformed(evt);
+            }
+        });
 
         btnManageStock.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnManageStock.setText("Manage Stock");
@@ -75,7 +80,7 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnManageEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBillingSection, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnManageStock, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -88,7 +93,7 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(btnManageEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBillingSection, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
                         .addComponent(btnManageStock, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -178,6 +183,11 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnBillingSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBillingSectionActionPerformed
+        new BillingForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBillingSectionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,8 +224,8 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBillingSection;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnManageEmp;
     private javax.swing.JButton btnManageStock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
