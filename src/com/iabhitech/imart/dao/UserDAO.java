@@ -11,9 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -37,6 +34,7 @@ public class UserDAO {
         if (userData.next()) {
             UserProfile.setUsername(userData.getString("username"));
             UserProfile.setUserType(userData.getString("usertype"));
+            UserProfile.setUserId(userData.getString("userid"));
             return true;
         }
         return false;

@@ -5,31 +5,33 @@
 package com.iabhitech.imart.gui;
 
 import com.iabhitech.imart.dao.OrderDAO;
-import com.iabhitech.imart.dao.ProductDAO;
+import com.iabhitech.imart.dao.UserDAO;
 import com.iabhitech.imart.pojo.ProductPojo;
+import com.iabhitech.imart.pojo.UserProfile;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Abhineet Verma
+ * @author ACER
  */
-public class BillingForm extends javax.swing.JFrame {
+public class ViewOrdersFrame extends javax.swing.JFrame {
 
-    ArrayList<ProductPojo> al = new ArrayList<>();
+    /**
+     * Creates new form ViewOrdersFrame
+     */
     DefaultTableModel tm;
-    float grandTotal = 0;
-    DecimalFormat df = new DecimalFormat("#.##");
 
-    public BillingForm() {
+    public ViewOrdersFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
-        txtProductId.requestFocus();
+        if (UserProfile.getUserType().equals(UserDAO.MANAGER)) {
+            labelHead.setText("Manager Panel");
+        }
+
+        loadOrdersID();
     }
 
     /**
@@ -44,20 +46,16 @@ public class BillingForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelWelcome = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelHead = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableOrders = new javax.swing.JTable();
-        txtProductId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnSubmit = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
+        comboOrders = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Billing Panel - Receptionist");
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 153));
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -70,9 +68,9 @@ public class BillingForm extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(51, 0, 153));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Receptionist Panel");
+        labelHead.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelHead.setForeground(new java.awt.Color(255, 255, 255));
+        labelHead.setText("Receptionist Panel");
 
         btnLogout.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnLogout.setText("Logout");
@@ -89,7 +87,7 @@ public class BillingForm extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelHead)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -100,7 +98,7 @@ public class BillingForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelHead)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(btnLogout)
@@ -139,33 +137,16 @@ public class BillingForm extends javax.swing.JFrame {
         tableOrders.setRowHeight(24);
         jScrollPane1.setViewportView(tableOrders);
 
-        txtProductId.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtProductId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductIdActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Product Id:");
+        jLabel2.setText("Select Order Id:");
 
-        btnSubmit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnSubmit.setText("Generate Bill");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        comboOrders.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                comboOrdersActionPerformed(evt);
             }
         });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Payable Amount:");
-
-        txtTotal.setEditable(false);
-        txtTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtTotal.setForeground(new java.awt.Color(0, 153, 0));
-        txtTotal.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -179,19 +160,13 @@ public class BillingForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
+                        .addComponent(comboOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(20, 20, 20))
         );
@@ -206,17 +181,12 @@ public class BillingForm extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelWelcome)
-                    .addComponent(jLabel2))
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(comboOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,35 +215,38 @@ public class BillingForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void txtProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductIdActionPerformed
-        String id = txtProductId.getText().trim().toUpperCase();
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No Product Found!", "Alert", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        loadItemList(id);
-
-    }//GEN-LAST:event_txtProductIdActionPerformed
-
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+    private void comboOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdersActionPerformed
+        // TODO add your handling code here:
+        String orderId = comboOrders.getSelectedItem().toString();
+        tm = (DefaultTableModel) tableOrders.getModel();
+        tm.setRowCount(0);
         try {
-            // Place order
-            String orderId = OrderDAO.getNextOrderID();
-            if (OrderDAO.addOrder(al, orderId) && ProductDAO.updateStocks(al)) {
-                JOptionPane.showMessageDialog(null, "Order of RS " + grandTotal + "/- created successfully");
-                new ViewOrdersFrame().setVisible(true);
-                this.dispose();
+            List<ProductPojo> prods;
+            if (UserProfile.getUserType().equals(UserDAO.RECEPTIONIST)) {
+                prods = OrderDAO.getOrders(orderId);
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to Process Order!");
+                prods = OrderDAO.getAllOrders(orderId);
+            }
+            Object[] rows = new Object[8];
+            for (ProductPojo p : prods) {
 
+                rows[0] = p.getProductId();
+                rows[1] = p.getProductName();
+                rows[2] = p.getProductCompany();
+                rows[3] = p.getProductPrice();
+                rows[4] = p.getOurPrice();
+                rows[5] = p.getQuantity();
+                rows[6] = p.getTax() + "%";
+                rows[7] = (p.getOurPrice() + (p.getTax() * p.getOurPrice() / 100.0)) * p.getQuantity();
+
+                tm.addRow(rows);
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "DB Error");
-
-            Logger.getLogger(BillingForm.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-    }//GEN-LAST:event_btnSubmitActionPerformed
+    }//GEN-LAST:event_comboOrdersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,20 +265,20 @@ public class BillingForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewOrdersFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewOrdersFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewOrdersFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewOrdersFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillingForm().setVisible(true);
+                new ViewOrdersFrame().setVisible(true);
             }
         });
     }
@@ -313,75 +286,36 @@ public class BillingForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnSubmit;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> comboOrders;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelHead;
     private javax.swing.JLabel labelWelcome;
     private javax.swing.JTable tableOrders;
-    private javax.swing.JTextField txtProductId;
-    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
-    private void loadItemList(String pid) {
+    private void loadOrdersID() {
         try {
-            ProductPojo p = ProductDAO.getProductDetail(pid);
-            if (p == null) {
-                JOptionPane.showMessageDialog(null, "No Product Found!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+            List<String> ids;
+            if (UserProfile.getUserType().equals(UserDAO.RECEPTIONIST)) {
+                ids = OrderDAO.getAllOrderIds(UserProfile.getUserId());
+            } else {
+                ids = OrderDAO.getAllOrderIds(null);
+            }
+
+            if (ids.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No Orders Found!");
                 return;
             }
-            tm = (DefaultTableModel) tableOrders.getModel();
-
-            int newQuantity, index = -1;
-            float newTotal;
-            if (al.contains(p)) {
-                index = al.indexOf(p);
-
-                ProductPojo prevProd = al.get(index);
-                int prevQuantity = prevProd.getQuantity();
-                newQuantity = prevQuantity + 1;
-                double total = p.getOurPrice() + p.getTax() * p.getOurPrice() / 100.0;
-                newTotal = (float) (prevProd.getTotal() + total);
-                grandTotal += total;
-
-                p.setQuantity(newQuantity);
-                p.setTotal(newTotal);
-                al.set(index, p);
-            } else {
-                newQuantity = 1;
-                newTotal = (float) (p.getOurPrice() + p.getTax() * p.getOurPrice() / 100.0);
-                grandTotal += newTotal;
-
-                p.setQuantity(newQuantity);
-                p.setTotal(newTotal);
-                al.add(p);
-            }
-
-            if (index != -1) {
-                tm.setValueAt(newQuantity, index, 5);
-                tm.setValueAt(newTotal, index, 7);
-            } else {
-                Object[] rows = new Object[8];
-
-                rows[0] = p.getProductId();
-                rows[1] = p.getProductName();
-                rows[2] = p.getProductCompany();
-                rows[3] = p.getProductPrice();
-                rows[4] = p.getOurPrice();
-                rows[5] = newQuantity;
-                rows[6] = p.getTax() + "%";
-                rows[7] = newTotal;
-
-                tm.addRow(rows);
-            }
-            String ruppeSymbol = String.valueOf('\u20B9');
-            txtTotal.setText(ruppeSymbol + " " + grandTotal);
+            ids.forEach(id -> {
+                comboOrders.addItem(id);
+            });
         } catch (SQLException ex) {
-            Logger.getLogger(BillingForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "DB Error");
+            ex.printStackTrace();
         }
     }
 }

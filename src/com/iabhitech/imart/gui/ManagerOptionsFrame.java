@@ -72,6 +72,11 @@ public class ManagerOptionsFrame extends javax.swing.JFrame {
         btnViewOrders.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnViewOrders.setText("View Orders");
         btnViewOrders.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnViewOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewOrdersActionPerformed(evt);
+            }
+        });
 
         btnManageRecep.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnManageRecep.setText("Manage Receptionist");
@@ -227,6 +232,11 @@ public class ManagerOptionsFrame extends javax.swing.JFrame {
         new ManageStocksFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnManageStockActionPerformed
+
+    private void btnViewOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrdersActionPerformed
+        new ViewOrdersFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnViewOrdersActionPerformed
 
     /**
      * @param args the command line arguments

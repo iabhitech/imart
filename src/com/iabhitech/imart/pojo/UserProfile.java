@@ -12,7 +12,8 @@ public class UserProfile {
 
     private static String userName;
     private static String userType;
-
+    private static String userId;
+    
     public static String getUsername() {
         return userName;
     }
@@ -27,6 +28,14 @@ public class UserProfile {
 
     public static void setUserType(String userType) {
         UserProfile.userType = userType;
+    }
+    
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(String userId) {
+        UserProfile.userId = userId;
     }
 
 }

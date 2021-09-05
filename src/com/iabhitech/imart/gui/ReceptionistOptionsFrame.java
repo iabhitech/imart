@@ -19,7 +19,7 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
     public ReceptionistOptionsFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
-        labelWelcome.setText("Welcome "+UserProfile.getUsername());
+        labelWelcome.setText("Welcome " + UserProfile.getUsername());
     }
 
     /**
@@ -68,8 +68,13 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
         });
 
         btnManageStock.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnManageStock.setText("Manage Stock");
+        btnManageStock.setText("View Orders");
         btnManageStock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManageStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageStockActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,6 +192,12 @@ public class ReceptionistOptionsFrame extends javax.swing.JFrame {
         new BillingForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBillingSectionActionPerformed
+
+    private void btnManageStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStockActionPerformed
+        // TODO add your handling code here:
+        new ViewOrdersFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageStockActionPerformed
 
     /**
      * @param args the command line arguments
