@@ -5,8 +5,8 @@
  */
 package com.iabhitech.imart.gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,24 +20,11 @@ public class SplashScreenFrame extends javax.swing.JFrame {
     public SplashScreenFrame() {
         initComponents();
         super.setLocationRelativeTo(null);
-        
-        LoginFrame lf = new LoginFrame();
-        SplashScreenFrame s = this;
-        
-        java.awt.EventQueue.invokeLater(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(SplashScreenFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                s.dispose();
-                lf.setVisible(true);
-            }
-            
-        });
-        
+
+        progressBar.setStringPainted(true);
+
+        SplashThread st = new SplashThread();
+        st.start();
     }
 
     /**
@@ -134,4 +121,25 @@ public class SplashScreenFrame extends javax.swing.JFrame {
     private javax.swing.JPanel outerPane;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
+
+    class SplashThread extends Thread {
+
+        public void run() {
+            int count = 1;
+            Random rand = new Random();
+            while (progressBar.getValue() < progressBar.getMaximum()) {
+                try {
+
+                    progressBar.setValue(count);
+                    count = count + rand.nextInt(50);
+                    Thread.sleep(1200);
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Thread Intruppted");
+                    ex.printStackTrace();
+                }
+            }
+            dispose();
+            new LoginFrame().setVisible(true);
+        }
+    }
 }
