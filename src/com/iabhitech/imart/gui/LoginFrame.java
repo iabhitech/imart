@@ -74,10 +74,8 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4.setText("Password");
 
         txtFieldUserID.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtFieldUserID.setText("iabhitech");
 
         txtFieldPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtFieldPassword.setText("iabhitech");
 
         javax.swing.GroupLayout loginPaneLayout = new javax.swing.GroupLayout(loginPane);
         loginPane.setLayout(loginPaneLayout);

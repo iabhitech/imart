@@ -210,8 +210,11 @@ public class ViewOrdersFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
-        new ReceptionistOptionsFrame().setVisible(true);
+        if (UserProfile.getUserType().equals(UserDAO.MANAGER)) {
+            new ManagerOptionsFrame().setVisible(true);
+        } else {
+            new ReceptionistOptionsFrame().setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
